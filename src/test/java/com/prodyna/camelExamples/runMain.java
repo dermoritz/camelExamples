@@ -17,7 +17,7 @@ public class runMain {
 
 	@Test
 	public void run(){
-		org.jboss.weld.environment.se.StartMain.main(new String[]{temp.getRoot().getAbsolutePath()});
+		org.jboss.weld.environment.se.StartMain.main(new String[]{temp.getRoot().getAbsolutePath(),"C:\\Users\\moritz\\Downloads\\dbTest"});
 	}
 
 }
