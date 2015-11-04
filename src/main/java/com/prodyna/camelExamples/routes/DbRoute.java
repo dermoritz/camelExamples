@@ -1,5 +1,7 @@
 package com.prodyna.camelExamples.routes;
 
+import java.util.concurrent.ExecutorService;
+
 import javax.inject.Inject;
 
 import org.apache.camel.Endpoint;
@@ -12,6 +14,7 @@ import com.prodyna.camelExamples.endpoints.EndpointProvider.WriteDb;
 import com.prodyna.camelExamples.processors.DbProcessor.DbProc;
 import com.prodyna.camelExamples.processors.DbResultsProcessor.DbResults;
 import com.prodyna.camelExamples.processors.MergerAggregator.Merger;
+import com.prodyna.camelExamples.threadpool.ThreadPoolProvider.ThreeTo6;
 
 public class DbRoute extends RouteBuilder {
 
@@ -20,15 +23,17 @@ public class DbRoute extends RouteBuilder {
     private Processor dbProcessor;
     private AggregationStrategy merger;
     private Processor dbResults;
+    private ExecutorService threadPool;
 
     @Inject
     private DbRoute(@TargetFolderEndpoint Endpoint folder, @WriteDb Endpoint db, @DbProc Processor dbProcessor,
-                    @Merger AggregationStrategy merger, @DbResults Processor dbResults) {
+                    @Merger AggregationStrategy merger, @DbResults Processor dbResults, @ThreeTo6 ExecutorService threadPool) {
         this.folder = folder;
         this.db = db;
         this.dbProcessor = dbProcessor;
         this.merger = merger;
         this.dbResults = dbResults;
+        this.threadPool = threadPool;
 
     }
 
@@ -39,7 +44,7 @@ public class DbRoute extends RouteBuilder {
                     .unmarshal().csv()
                     //handle csv line by line
                     .split().body()
-                    .threads(5)
+                    .threads().executorService(threadPool)
                     .process(dbProcessor)
                     .aggregate(constant(true), merger).completionSize(100).completionTimeout(1000)
                     .forceCompletionOnStop()

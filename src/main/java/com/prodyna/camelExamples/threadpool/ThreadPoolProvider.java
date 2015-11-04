@@ -27,7 +27,7 @@ public class ThreadPoolProvider {
     @Produces
     @ThreeTo6
     private ExecutorService get3to6() throws Exception{
-        return new ThreadPoolBuilder(context).poolSize(3).maxPoolSize(6).build();
+        return new ThreadPoolBuilder(context).poolSize(3).maxPoolSize(6).build("3to6");
     }
 
 
