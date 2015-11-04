@@ -19,7 +19,7 @@ public class RestProcessor implements Processor {
     @Override
     public void process(Exchange exchange) throws Exception {
         String parameter = exchange.getIn().getHeader(EndpointProvider.PARAMETER_HEADER, String.class);
-        String answer = "?";
+        String answer = "42";
         if(parameter.equalsIgnoreCase("ping")){
             answer = "pong";
         } else if (parameter.equalsIgnoreCase("pong")) {
