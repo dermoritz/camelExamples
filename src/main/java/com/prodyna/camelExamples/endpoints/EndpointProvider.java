@@ -70,6 +70,14 @@ public class EndpointProvider {
         return endpoint;
     }
 
+    @Produces
+    @RestFileEndpoint
+    private Endpoint getRestFileEndpoint() {
+        org.apache.camel.component.rest.RestEndpoint endpoint = context.getEndpoint("rest:get:file",
+                                                                                    org.apache.camel.component.rest.RestEndpoint.class);
+        return endpoint;
+    }
+
     public static final String UUID_PAR = "UUID";
     public static final String COL1 = "COL1";
     public static final String COL2 = "COL2";
@@ -96,6 +104,8 @@ public class EndpointProvider {
         return endpoint;
     }
 
+    private static final String DB_COUNT_QUERY = "select count(*) from CAMEL.STUFF";
+
     @Produces
     @CountDb
     private Endpoint getCountDbEndpoint() {
@@ -104,7 +114,6 @@ public class EndpointProvider {
         return endpoint;
     }
 
-    private static final String DB_COUNT_QUERY = "select count(*) from CAMEL.STUFF";
 
     @Qualifier
     @Retention(RetentionPolicy.RUNTIME)
@@ -131,6 +140,13 @@ public class EndpointProvider {
     @Retention(RetentionPolicy.RUNTIME)
     @Target({ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER})
     public static @interface RestTruncateEndpoint {
+
+    }
+
+    @Qualifier
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target({ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER})
+    public static @interface RestFileEndpoint {
 
     }
 

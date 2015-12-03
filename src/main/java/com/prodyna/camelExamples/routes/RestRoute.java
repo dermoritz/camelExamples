@@ -9,9 +9,11 @@ import org.apache.camel.builder.RouteBuilder;
 import com.prodyna.camelExamples.endpoints.EndpointProvider.CountDb;
 import com.prodyna.camelExamples.endpoints.EndpointProvider.RestCountEndpoint;
 import com.prodyna.camelExamples.endpoints.EndpointProvider.RestEndpoint;
+import com.prodyna.camelExamples.endpoints.EndpointProvider.RestFileEndpoint;
 import com.prodyna.camelExamples.endpoints.EndpointProvider.RestTruncateEndpoint;
 import com.prodyna.camelExamples.endpoints.EndpointProvider.TruncateDb;
 import com.prodyna.camelExamples.processors.RestProcessor.RestProc;
+import com.prodyna.camelExamples.processors.SendFile.SendFileProc;
 
 public class RestRoute extends RouteBuilder {
 
@@ -21,17 +23,22 @@ public class RestRoute extends RouteBuilder {
     private Endpoint countDb;
     private Endpoint restTruncateEndpoint;
     private Endpoint truncateDb;
+    private Endpoint restFileEndpoint;
+    private Processor sendFile;
 
     @Inject
     private RestRoute(@RestEndpoint Endpoint rest, @RestProc Processor answer,
                       @RestCountEndpoint Endpoint restCountEndpoint, @CountDb Endpoint countDb,
-                      @RestTruncateEndpoint Endpoint restTruncateEndpoint, @TruncateDb Endpoint truncateDb) {
+                      @RestTruncateEndpoint Endpoint restTruncateEndpoint, @TruncateDb Endpoint truncateDb,
+                      @RestFileEndpoint Endpoint restFileEndpoint, @SendFileProc Processor sendFile) {
         this.rest = rest;
         this.answer = answer;
         this.restCountEndpoint = restCountEndpoint;
         this.countDb = countDb;
         this.restTruncateEndpoint = restTruncateEndpoint;
         this.truncateDb = truncateDb;
+        this.restFileEndpoint = restFileEndpoint;
+        this.sendFile = sendFile;
 
     }
 
@@ -41,6 +48,7 @@ public class RestRoute extends RouteBuilder {
         from(rest).process(answer);
         from(restCountEndpoint).to(countDb);
         from(restTruncateEndpoint).to(truncateDb).to(countDb);
+        from(restFileEndpoint).process(sendFile);
     }
 
 }
