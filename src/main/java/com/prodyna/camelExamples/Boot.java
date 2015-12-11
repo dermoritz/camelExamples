@@ -1,6 +1,5 @@
 package com.prodyna.camelExamples;
 
-import javax.enterprise.event.Observes;
 import javax.enterprise.inject.Any;
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
@@ -11,8 +10,6 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.restlet.RestletComponent;
 import org.apache.camel.impl.SimpleRegistry;
-import org.jboss.weld.environment.se.events.ContainerInitialized;
-import org.jboss.weld.environment.se.events.ContainerShutdown;
 import org.slf4j.Logger;
 
 import com.google.common.base.Preconditions;
@@ -39,6 +36,7 @@ public class Boot {
         this.main = main;
         this.ds = ds;
         this.context = Preconditions.checkNotNull(context);
+        this.main.enableHangupSupport();
         setupContext();
 	}
 
@@ -51,13 +49,12 @@ public class Boot {
 
     }
 
-    public void start(@Observes ContainerInitialized event) throws Exception{
-		log.info("starting");
-		main.run();
-	}
-
-	public void stop(@Observes ContainerShutdown event) throws Exception{
-	    main.stop();
-	}
+    public void start(){
+        try {
+            main.run();
+        } catch (Exception e) {
+            throw new IllegalStateException("Problem on starting camel: ", e);
+        }
+    }
 
 }

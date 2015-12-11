@@ -15,8 +15,8 @@ import org.apache.camel.Endpoint;
 import org.apache.camel.component.file.FileEndpoint;
 import org.apache.camel.component.sql.SqlEndpoint;
 
-import com.prodyna.camelExamples.ArgsConfiguration.Folder;
-import com.prodyna.camelExamples.ArgsConfiguration.TargetFolder;
+import com.prodyna.camelExamples.provider.ArgsConfiguration.Folder;
+import com.prodyna.camelExamples.provider.ArgsConfiguration.TargetFolder;
 import com.prodyna.camelExamples.Boot;
 
 public class EndpointProvider {

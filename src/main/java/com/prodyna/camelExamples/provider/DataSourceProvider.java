@@ -1,4 +1,4 @@
-package com.prodyna.camelExamples;
+package com.prodyna.camelExamples.provider;
 
 import java.sql.SQLException;
 

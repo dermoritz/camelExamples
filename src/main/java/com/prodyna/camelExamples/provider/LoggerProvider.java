@@ -1,4 +1,4 @@
-package com.prodyna.camelExamples;
+package com.prodyna.camelExamples.provider;
 
 import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.InjectionPoint;

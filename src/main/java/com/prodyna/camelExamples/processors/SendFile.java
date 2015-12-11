@@ -22,7 +22,7 @@ import org.apache.camel.Processor;
 import org.slf4j.Logger;
 
 import com.google.common.collect.Lists;
-import com.prodyna.camelExamples.ArgsConfiguration.DownloadFolder;
+import com.prodyna.camelExamples.provider.ArgsConfiguration.DownloadFolder;
 import com.prodyna.camelExamples.processors.SendFile.SendFileProc;
 
 @SendFileProc
@@ -37,7 +37,6 @@ public class SendFile implements Processor {
     @Inject
     private SendFile(@DownloadFolder File folder) {
         this.folder = folder;
-        fetchAllFiles();
     }
 
     private void fetchAllFiles() {
@@ -61,6 +60,7 @@ public class SendFile implements Processor {
 
     @Override
     public void process(Exchange exchange) throws Exception {
+        fetchAllFiles();
         if (files.size() > 0) {
             int index = random.nextInt(files.size());
             File file = files.get(index).toFile();
@@ -68,7 +68,6 @@ public class SendFile implements Processor {
                 exchange.getIn().setBody(file);
             }else{
                 log.info("File " + file + " not found updating list...");
-                fetchAllFiles();
                 exchange.getIn().setBody("file moved or deleted, try again...");
             }
         } else {

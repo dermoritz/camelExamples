@@ -26,8 +26,7 @@ public class runMain {
 
     @Test
     public void run() {
-        org.jboss.weld.environment.se.StartMain.main(new String[] {temp.getRoot().getAbsolutePath(),
-                                                                   prepared.getAbsolutePath()});
+        Main.main(new String[] {temp.getRoot().getAbsolutePath(), prepared.getAbsolutePath(), temp.getRoot().getAbsolutePath()});
     }
 
 }
