@@ -2,16 +2,17 @@ package com.prodyna.camelExamples.routes;
 
 import javax.inject.Inject;
 
+import com.prodyna.camelExamples.endpoints.DbEndpointProvider;
 import org.apache.camel.Endpoint;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
 
-import com.prodyna.camelExamples.endpoints.EndpointProvider.CountDb;
-import com.prodyna.camelExamples.endpoints.EndpointProvider.RestCountEndpoint;
-import com.prodyna.camelExamples.endpoints.EndpointProvider.RestEndpoint;
-import com.prodyna.camelExamples.endpoints.EndpointProvider.RestFileEndpoint;
-import com.prodyna.camelExamples.endpoints.EndpointProvider.RestTruncateEndpoint;
-import com.prodyna.camelExamples.endpoints.EndpointProvider.TruncateDb;
+import com.prodyna.camelExamples.endpoints.RestEndpointProvider.RestCountEndpoint;
+import com.prodyna.camelExamples.endpoints.RestEndpointProvider.RestEndpoint;
+import com.prodyna.camelExamples.endpoints.RestEndpointProvider.RestFileEndpoint;
+import com.prodyna.camelExamples.endpoints.RestEndpointProvider.RestTruncateEndpoint;
+import com.prodyna.camelExamples.endpoints.DbEndpointProvider.CountDb;
+import com.prodyna.camelExamples.endpoints.DbEndpointProvider.TruncateDb;
 import com.prodyna.camelExamples.processors.RestProcessor.RestProc;
 import com.prodyna.camelExamples.processors.SendFile.SendFileProc;
 

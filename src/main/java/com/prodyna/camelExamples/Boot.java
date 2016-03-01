@@ -19,9 +19,6 @@ public class Boot {
 
 	public static final String DB = "db";
 
-    @Inject
-	private Logger log;
-
 	private CamelContext context;
 
     private Instance<RouteBuilder> routes;

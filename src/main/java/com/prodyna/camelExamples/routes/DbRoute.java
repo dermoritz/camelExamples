@@ -4,13 +4,12 @@ import java.util.concurrent.ExecutorService;
 
 import javax.inject.Inject;
 
+import com.prodyna.camelExamples.endpoints.DbEndpointProvider.WriteDb;
+import com.prodyna.camelExamples.endpoints.FileEndpointProvider.TargetFolderEndpoint;
 import org.apache.camel.Endpoint;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.processor.aggregate.AggregationStrategy;
-
-import com.prodyna.camelExamples.endpoints.EndpointProvider.TargetFolderEndpoint;
-import com.prodyna.camelExamples.endpoints.EndpointProvider.WriteDb;
 import com.prodyna.camelExamples.processors.DbProcessor.DbProc;
 import com.prodyna.camelExamples.processors.DbResultsProcessor.DbResults;
 import com.prodyna.camelExamples.processors.MergerAggregator.Merger;
@@ -49,7 +48,7 @@ public class DbRoute extends RouteBuilder {
                     .aggregate(constant(true), merger).completionSize(100).completionTimeout(1000)
                     .forceCompletionOnStop()
                     .to(db)
-                    .process(dbResults);
+                    .process(dbResults).id("dbResults");
     }
 
 }

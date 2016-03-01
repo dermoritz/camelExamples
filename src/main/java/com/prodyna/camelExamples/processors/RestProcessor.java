@@ -10,7 +10,7 @@ import javax.inject.Qualifier;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 
-import com.prodyna.camelExamples.endpoints.EndpointProvider;
+import com.prodyna.camelExamples.endpoints.RestEndpointProvider;
 import com.prodyna.camelExamples.processors.RestProcessor.RestProc;
 
 @RestProc
@@ -18,7 +18,7 @@ public class RestProcessor implements Processor {
 
     @Override
     public void process(Exchange exchange) throws Exception {
-        String parameter = exchange.getIn().getHeader(EndpointProvider.PARAMETER_HEADER, String.class);
+        String parameter = exchange.getIn().getHeader(RestEndpointProvider.PARAMETER_HEADER, String.class);
         String answer = "42";
         if(parameter.equalsIgnoreCase("ping")){
             answer = "pong";

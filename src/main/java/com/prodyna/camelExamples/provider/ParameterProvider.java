@@ -14,6 +14,7 @@ import java.util.List;
 
 import static java.lang.annotation.ElementType.*;
 import static java.lang.annotation.RetentionPolicy.*;
+import static java.util.Collections.*;
 
 /**
  * Created by moritz on 11.12.2015.
@@ -60,7 +61,7 @@ public class ParameterProvider extends ParametersFactory{
             args = new String[]{};
         }
         this.args = args;
-        this.argsList = Collections.unmodifiableList(new ArrayList<String>(Arrays.asList(args)));
+        this.argsList = unmodifiableList(new ArrayList<String>(Arrays.asList(args)));
     }
 
     @Qualifier

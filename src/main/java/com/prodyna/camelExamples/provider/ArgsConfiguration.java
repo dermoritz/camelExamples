@@ -1,6 +1,7 @@
 package com.prodyna.camelExamples.provider;
 
 import static com.google.common.base.Preconditions.checkArgument;
+import static com.prodyna.camelExamples.provider.ParameterProvider.*;
 
 import java.io.File;
 import java.lang.annotation.ElementType;
@@ -26,7 +27,7 @@ public class ArgsConfiguration {
 
 
     @Inject
-    private ArgsConfiguration(@ParameterProvider.Parameters List<String> args, Logger log) {
+    private ArgsConfiguration(@Parameters List<String> args, Logger log) {
         checkArgument(args.size() > 1);
         folder = checkFolder(args.get(0));
         log.info("Source folder is: " + folder);
